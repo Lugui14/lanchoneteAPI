@@ -1,6 +1,7 @@
 package api.lanches.lanchonete.modules.category.infra;
 
 import api.lanches.lanchonete.modules.category.dtos.CreateCategoryDTO;
+import api.lanches.lanchonete.modules.category.dtos.UpdateCategoryDTO;
 import api.lanches.lanchonete.modules.product.infra.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,5 +34,21 @@ public class Category {
         this.iscategoryactive = isIscategoryactive();
     }
 
+    public void updateData(UpdateCategoryDTO data) {
+        if(data.category() != null) {
+            this.category = data.category();
+        }
 
+        if(data.description() != null) {
+            this.description = data.description();
+        }
+
+        if(data.iscategoryactive()) {
+            this.iscategoryactive = true;
+        }
+    }
+
+    public void delete() {
+        this.iscategoryactive = false;
+    }
 }
