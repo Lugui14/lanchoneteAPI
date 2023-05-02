@@ -1,6 +1,9 @@
 package api.lanches.lanchonete.modules.user.useCases;
 
+import api.lanches.lanchonete.infra.security.TokenService;
+import api.lanches.lanchonete.modules.category.dtos.JWTtokenDTO;
 import api.lanches.lanchonete.modules.user.dtos.AuthenticationDTO;
+import api.lanches.lanchonete.modules.user.infra.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +21,17 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity signIn(@RequestBody @Valid AuthenticationDTO data) {
-        var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        var authentitacion = manager.authenticate(token);
+        var authToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        var authentication = manager.authenticate(authToken);
 
-        return ResponseEntity.ok().build();
+        var JWTtoken = tokenService.generateToken((User) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new JWTtokenDTO(JWTtoken));
     }
 
 }
