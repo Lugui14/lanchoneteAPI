@@ -2,6 +2,8 @@ package api.lanches.lanchonete.modules.request.infra;
 
 import api.lanches.lanchonete.modules.control.infra.Control;
 import api.lanches.lanchonete.modules.product.infra.Product;
+import api.lanches.lanchonete.modules.request.dtos.DetailRequestDTO;
+import api.lanches.lanchonete.modules.request.dtos.RequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -17,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class Request {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idrequest;
+    private Long idrequest;
     private int requeststatus;
-    private float vlvenda;
+    private double vlvenda;
 
     @ManyToOne
     @JoinColumn(name = "idproduct", nullable = false)
@@ -29,4 +31,9 @@ public class Request {
     @JoinColumn(name = "idcontrol", nullable = false)
     private Control control;
 
+    public void update(DetailRequestDTO data) {
+        if(data.product() != null) {
+            this.product = data.product();
+        }
+    }
 }

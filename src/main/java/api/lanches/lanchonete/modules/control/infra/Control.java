@@ -21,7 +21,7 @@ import java.util.List;
 public class Control {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idcontrol;
+    private Long idcontrol;
     private String client;
     private float topay;
     private float discount;

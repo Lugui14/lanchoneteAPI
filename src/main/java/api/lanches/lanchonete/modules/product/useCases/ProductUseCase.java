@@ -38,6 +38,8 @@ public class ProductUseCase {
                 data.idcategory(),
                 true)));
 
+
+        //individual validation
         if(productRepository.existsProductByProduct(data.product())) {
             throw new ValidationException("Já existe um produto com esse nome.");
         }
@@ -69,6 +71,7 @@ public class ProductUseCase {
 
         validations.forEach(v -> v.validate(data));
 
+        //individual validation
         if(productRepository.existsProductByIdproductAndIsproductactiveTrue(data.idproduct())) {
             throw new ValidationException("Produto inexistente ou inativo");
         }
@@ -91,6 +94,7 @@ public class ProductUseCase {
 
     public void delete(Long idproduct) {
 
+        //individual validation
         if(!productRepository.existsProductByIdproductAndIsproductactiveTrue(idproduct)) {
             throw new ValidationException("Esse produto não existe ou ja está inativo");
         }
