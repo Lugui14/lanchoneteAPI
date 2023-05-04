@@ -19,10 +19,15 @@ public class Paymentmethod {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idpaymentmethod;
+    private Long idpaymentmethod;
     private String paymentmethod;
     private double valmoved;
 
     @OneToMany(mappedBy = "paymentmethod")
     private List<Payment> payment;
+
+    public Paymentmethod(String method) {
+        this.paymentmethod = method;
+        this.valmoved = 0;
+    }
 }
