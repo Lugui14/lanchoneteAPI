@@ -7,6 +7,5 @@ public record CreateCategoryDTO(
         String category,
 
         @NotBlank
-        String description,
-        boolean iscategoryactive
+        String description
 ) {}

@@ -1,7 +1,7 @@
 package api.lanches.lanchonete.modules.user.useCases;
 
 import api.lanches.lanchonete.infra.security.TokenService;
-import api.lanches.lanchonete.modules.category.dtos.JWTtokenDTO;
+import api.lanches.lanchonete.modules.user.dtos.JWTtokenDTO;
 import api.lanches.lanchonete.modules.user.dtos.AuthenticationDTO;
 import api.lanches.lanchonete.modules.user.infra.User;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity signIn(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<JWTtokenDTO> signIn(@RequestBody @Valid AuthenticationDTO data) {
         var authToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authentication = manager.authenticate(authToken);
 

@@ -1,6 +1,8 @@
 package api.lanches.lanchonete.modules.waiter.infra;
 
 import api.lanches.lanchonete.modules.control.infra.Control;
+import api.lanches.lanchonete.modules.waiter.dtos.CreateWaiterDTO;
+import api.lanches.lanchonete.modules.waiter.dtos.UpdateWaiterDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -24,5 +26,20 @@ public class Waiter {
 
     @OneToMany(mappedBy = "waiter")
     private List<Control> control;
+
+    public Waiter(CreateWaiterDTO data) {
+        this.waiter = data.waiter();
+        this.salary = data.salary();
+    }
+
+    public void updateWaiter(UpdateWaiterDTO data) {
+        if(data.waiter() != null) {
+            this.waiter = data.waiter();
+        }
+
+        if(data.salary() != 0) {
+            this.salary = data.salary();
+        }
+    }
 
 }

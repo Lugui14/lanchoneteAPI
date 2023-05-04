@@ -31,7 +31,7 @@ public class Category {
     public Category(CreateCategoryDTO data) {
         this.category = data.category();
         this.description = data.description();
-        this.iscategoryactive = isIscategoryactive();
+        this.iscategoryactive = true;
     }
 
     public void updateData(UpdateCategoryDTO data) {
