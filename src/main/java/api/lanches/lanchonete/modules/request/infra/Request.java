@@ -3,7 +3,6 @@ package api.lanches.lanchonete.modules.request.infra;
 import api.lanches.lanchonete.modules.control.infra.Control;
 import api.lanches.lanchonete.modules.product.infra.Product;
 import api.lanches.lanchonete.modules.request.dtos.DetailRequestDTO;
-import api.lanches.lanchonete.modules.request.dtos.RequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -34,6 +33,10 @@ public class Request {
     public void update(DetailRequestDTO data) {
         if(data.product() != null) {
             this.product = data.product();
+        }
+
+        if(data.requeststatus() != this.requeststatus) {
+            this.requeststatus = data.requeststatus();
         }
     }
 }

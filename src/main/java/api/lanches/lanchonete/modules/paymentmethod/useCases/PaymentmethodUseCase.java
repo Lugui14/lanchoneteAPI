@@ -22,7 +22,11 @@ public class PaymentmethodUseCase {
     }
 
     public PaymentmethodDTO create(String method) {
-        var paymethod = new Paymentmethod(method.toUpperCase(new Locale("pt", "BR")));
+        if(repository.existsPaymentmethodByPaymentmethod(method)) {
+            throw new ValidationException("O metodo já existe");
+        }
+
+        var paymethod = new Paymentmethod(method.toUpperCase(Locale.ROOT));
         repository.save(paymethod);
 
         return new PaymentmethodDTO(paymethod);
@@ -31,7 +35,7 @@ public class PaymentmethodUseCase {
     public void delete(Long idmethod) {
 
         if(!repository.existsById(idmethod)) {
-            throw new ValidationException("O metodo de pagamento nao existe");
+            throw new ValidationException("O metodo de pagamento não existe");
         }
 
         repository.deleteById(idmethod);

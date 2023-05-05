@@ -1,6 +1,7 @@
 package api.lanches.lanchonete.modules.payment.infra;
 
 import api.lanches.lanchonete.modules.control.infra.Control;
+import api.lanches.lanchonete.modules.payment.dtos.DetailPaymentDTO;
 import api.lanches.lanchonete.modules.paymentmethod.infa.Paymentmethod;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,8 +19,8 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idpayment;
-    private float amountpaid;
+    private Long idpayment;
+    private double amountpaid;
     private String paymentdetail;
 
     @ManyToOne
@@ -29,5 +30,19 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "idpaymentmethod", nullable = false)
     private Paymentmethod paymentmethod;
+
+    public void update(DetailPaymentDTO data) {
+        if(data.amountpaid() != 0) {
+            this.amountpaid = data.amountpaid();
+        }
+
+        if(data.paymentdetail() != null) {
+            this.paymentdetail = data.paymentdetail();
+        }
+
+        if(data.paymentmethod() != null) {
+            this.paymentmethod = data.paymentmethod();
+        }
+    }
 
 }

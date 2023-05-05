@@ -68,7 +68,7 @@ public class RequestUseCase {
 
         var product = productRepository.getReferenceById(data.idproduct());
 
-        request.update(new DetailRequestDTO(product));
+        request.update(new DetailRequestDTO(product, data.requeststatus()));
 
         return new ListRequestDTO(request);
     }
