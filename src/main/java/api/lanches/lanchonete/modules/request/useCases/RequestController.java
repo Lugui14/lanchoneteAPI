@@ -3,6 +3,7 @@ package api.lanches.lanchonete.modules.request.useCases;
 import api.lanches.lanchonete.modules.request.dtos.CreateRequestDTO;
 import api.lanches.lanchonete.modules.request.dtos.ListRequestDTO;
 import api.lanches.lanchonete.modules.request.dtos.UpdateRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/request")
+@SecurityRequirement(name = "bearer-key")
 public class RequestController {
 
     @Autowired

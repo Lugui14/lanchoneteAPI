@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ControlRepository extends JpaRepository<Control, Long> {
 
-    boolean existsControlByIdcontrolAndIsclosedFalse(Long idcontrol);
+    boolean existsByIdcontrolAndIsclosedFalse(Long idcontrol);
 
     boolean existsAllByControlnumber(int controlnumber);
 

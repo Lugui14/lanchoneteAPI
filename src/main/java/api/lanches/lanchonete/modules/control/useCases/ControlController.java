@@ -4,6 +4,7 @@ import api.lanches.lanchonete.modules.control.dtos.CreateControlDTO;
 import api.lanches.lanchonete.modules.control.dtos.GetOneControlDTO;
 import api.lanches.lanchonete.modules.control.dtos.ListControlDTO;
 import api.lanches.lanchonete.modules.control.dtos.UpdateControlDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/control")
+@SecurityRequirement(name = "bearer-key")
 public class ControlController {
 
     @Autowired

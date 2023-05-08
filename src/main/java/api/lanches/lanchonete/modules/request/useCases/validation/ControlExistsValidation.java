@@ -14,7 +14,7 @@ public class ControlExistsValidation implements RequestValidation{
 
     @Override
     public void validate(RequestDTO data) {
-        if(!controlRepository.existsControlByIdcontrolAndIsclosedFalse(data.idcontrol())) {
+        if(!controlRepository.existsByIdcontrolAndIsclosedFalse(data.idcontrol())) {
             throw new ValidationException("Comanda não existe ou ja foi fechada.");
         }
     }

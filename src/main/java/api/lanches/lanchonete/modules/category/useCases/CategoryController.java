@@ -3,6 +3,7 @@ package api.lanches.lanchonete.modules.category.useCases;
 import api.lanches.lanchonete.modules.category.dtos.CreateCategoryDTO;
 import api.lanches.lanchonete.modules.category.dtos.ListCategoriesDTO;
 import api.lanches.lanchonete.modules.category.dtos.UpdateCategoryDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/category")
+@SecurityRequirement(name = "bearer-key")
 public class CategoryController {
 
     @Autowired

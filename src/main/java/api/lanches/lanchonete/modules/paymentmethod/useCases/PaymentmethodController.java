@@ -1,6 +1,7 @@
 package api.lanches.lanchonete.modules.paymentmethod.useCases;
 
 import api.lanches.lanchonete.modules.paymentmethod.dtos.PaymentmethodDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/paymentmethod")
+@SecurityRequirement(name = "bearer-key")
 public class PaymentmethodController {
 
     @Autowired

@@ -78,7 +78,7 @@ public class ControlUseCase {
     }
 
     public void closeControl(Long idcontrol) {
-        if(controlRepository.existsControlByIdcontrolAndIsclosedFalse(idcontrol)) {
+        if(!controlRepository.existsByIdcontrolAndIsclosedFalse(idcontrol)) {
             throw new ValidationException("A comanda especificada não existe ou já está fechada");
         }
 

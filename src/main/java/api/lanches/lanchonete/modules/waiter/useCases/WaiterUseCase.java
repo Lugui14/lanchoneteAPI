@@ -17,7 +17,7 @@ public class WaiterUseCase {
     @Autowired
     private WaiterRepository repository;
 
-    public Waiter create(CreateWaiterDTO data) {
+    public ListWaiterDTO create(CreateWaiterDTO data) {
         if(data.salary() < 1300) {
             throw new ValidationException("O salario não pode ser menor que 1300 (salario minimo).");
         }
@@ -25,18 +25,18 @@ public class WaiterUseCase {
         var waiter = new Waiter(data);
         repository.save(waiter);
 
-        return waiter;
+        return new ListWaiterDTO(waiter);
     }
 
     public Page<ListWaiterDTO> list(Pageable pageable) {
         return repository.findAll(pageable).map(ListWaiterDTO::new);
     }
 
-    public Waiter getOne(long idwaiter) {
-        return repository.getReferenceById(idwaiter);
+    public ListWaiterDTO getOne(Long idwaiter) {
+        return new ListWaiterDTO(repository.getReferenceById(idwaiter));
     }
 
-    public Waiter update(UpdateWaiterDTO data) {
+    public ListWaiterDTO update(UpdateWaiterDTO data) {
         if(data.salary() != 0 && data.salary() < 1300) {
             throw new ValidationException("O salario não pode ser menor que 1300 (salario minimo).");
         }
@@ -44,7 +44,7 @@ public class WaiterUseCase {
         var waiter = repository.getReferenceById(data.idwaiter());
         waiter.updateWaiter(data);
 
-        return waiter;
+        return new ListWaiterDTO(waiter);
     }
 
     public void delete(long idwaiter) {

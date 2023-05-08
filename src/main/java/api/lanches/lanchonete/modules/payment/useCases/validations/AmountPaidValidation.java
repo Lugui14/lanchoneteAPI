@@ -15,7 +15,7 @@ public class AmountPaidValidation implements PaymentValidation {
     @Override
     public void validate(PaymentDTO data) {
 
-        if(controlRepository.existsControlByIdcontrolAndIsclosedFalse(data.idcontrol())) {
+        if(!controlRepository.existsByIdcontrolAndIsclosedFalse(data.idcontrol())) {
             throw new ValidationException("A comanda especificada não existe ou está fechada");
         }
 
