@@ -44,6 +44,11 @@ public class ProductUseCase {
             throw new ValidationException("Já existe um produto com esse nome.");
         }
 
+        if(data.idcategory() == null ||
+                !categoryRepository.existsCategoryByIdcategoryAndIscategoryactiveTrue(data.idcategory())) {
+            throw new ValidationException("A Categoria é invalida ou não existe.");
+        }
+
         var category = categoryRepository.getReferenceById(data.idcategory());
         var product = new Product(
                 null,
@@ -72,15 +77,15 @@ public class ProductUseCase {
         validations.forEach(v -> v.validate(data));
 
         //individual validation
-        if(productRepository.existsProductByIdproductAndIsproductactiveTrue(data.idproduct())) {
-            throw new ValidationException("Produto inexistente ou inativo");
+        if(!productRepository.existsById(data.idproduct())) {
+            throw new ValidationException("Produto inexistente");
         }
 
         var product = productRepository.getReferenceById(data.idproduct());
         var category = categoryRepository.getReferenceById(data.idcategory());
 
         var newproduct = new DetailProductDTO(
-                null,
+                data.idproduct(),
                 data.product(),
                 data.price(),
                 data.description(),

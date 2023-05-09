@@ -4,8 +4,8 @@ import jakarta.validation.constraints.NotNull;
 
 public record ProductDTO(@NotNull Long idproduct,
                          String product,
-                         double price,
+                         @NotNull double price,
                          String description,
-                         Long idcategory,
+                         @NotNull Long idcategory,
                          boolean isproductactive) {
 }
