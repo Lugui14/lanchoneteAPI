@@ -14,7 +14,7 @@ public class ExistsControlNumberValidation implements ControlValidation {
 
     @Override
     public void validate(ControlDTO data) {
-        if(controlRepository.existsAllByControlnumber(data.controlnumber())) {
+        if(controlRepository.existsAllByControlnumberAndIsclosedFalse(data.controlnumber())) {
             throw new ValidationException("Esse numero de comanda já está sendo usado");
         }
     }

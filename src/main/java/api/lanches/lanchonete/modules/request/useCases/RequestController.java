@@ -30,6 +30,13 @@ public class RequestController {
         return ResponseEntity.created(uri).body(request);
     }
 
+    @GetMapping
+    public ResponseEntity<Page<ListRequestDTO>> listLasts(Pageable pageable) {
+        var page = requestUseCase.listLasts(pageable);
+
+        return ResponseEntity.ok(page);
+    }
+
     @GetMapping("/{idcontrol}")
     public ResponseEntity<Page<ListRequestDTO>> list(@PathVariable Long idcontrol, Pageable pageable) {
         var page = requestUseCase.list(idcontrol, pageable);

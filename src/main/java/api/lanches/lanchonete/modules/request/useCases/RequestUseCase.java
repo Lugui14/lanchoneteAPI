@@ -41,6 +41,10 @@ public class RequestUseCase {
         return new ListRequestDTO(request);
     }
 
+    public Page<ListRequestDTO> listLasts(Pageable pageable) {
+        return requestRepository.findAll(pageable).map(ListRequestDTO::new);
+    }
+
     public Page<ListRequestDTO> list(Long idcontrol, Pageable pageable) {
 
         //validacao individual

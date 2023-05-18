@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/control")
 @SecurityRequirement(name = "bearer-key")
@@ -29,6 +31,12 @@ public class ControlController {
         var uri = uriBuilder.path("/control/{idcontrol}").buildAndExpand(control.idcontrol()).toUri();
 
         return ResponseEntity.created(uri).body(control);
+    }
+
+    @GetMapping("/numbers")
+    public ResponseEntity<ArrayList<Integer>> listNumbers() {
+        var list = controlUseCase.listAvailableNumbers();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/opened={opened}")

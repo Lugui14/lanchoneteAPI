@@ -47,15 +47,14 @@ class RequestControllerTest {
                 .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-
     }
 
     @Test
-    @DisplayName("Deveria retornar erro 201 quando tentar criar pedido com sucesso")
+    @DisplayName("Deveria retornar 201 quando tentar criar pedido com sucesso")
     @WithMockUser
     void createRequestSuccess() throws Exception {
 
-        var listRequest = new ListRequestDTO(null, 1L, "Suco", 6, 0);
+        var listRequest = new ListRequestDTO(null, 1, "Suco", 6, 0);
         var createdRequest = new CreateRequestDTO(11L, 1L);
 
         when(requestUseCase.create(any())).thenReturn(listRequest);

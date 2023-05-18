@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -41,6 +43,20 @@ public class ControlUseCase {
         controlRepository.save(control);
 
         return new GetOneControlDTO(control);
+    }
+
+    public ArrayList<Integer> listAvailableNumbers() {
+        ArrayList<Integer> AvailableNumbers = new ArrayList<>();
+        for(int i = 1; i <= 20; i++) {
+            AvailableNumbers.add(i);
+        }
+
+        ArrayList<Integer> UnavailableNumbers = controlRepository.findUnavailableNumbers();
+        for(Integer number: UnavailableNumbers) {
+            AvailableNumbers.remove(number);
+        }
+
+        return AvailableNumbers;
     }
 
     public Page<ListControlDTO> list(boolean opened, Pageable pageable) {
