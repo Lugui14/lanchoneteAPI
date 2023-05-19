@@ -32,6 +32,10 @@ public class RequestUseCase {
 
         validations.forEach(v -> v.validate(new RequestDTO(null, data.idproduct(), data.idcontrol())));
 
+        if(!productRepository.existsProductByIdproductAndIsproductactiveTrue(data.idproduct())) {
+            throw new ValidationException("Produto não existe ou está inativo.");
+        }
+
         var product = productRepository.getReferenceById(data.idproduct());
         var control = controlRepository.getReferenceById(data.idcontrol());
         var request = new Request(null, 0, product.getPrice(), product, control);
@@ -70,9 +74,14 @@ public class RequestUseCase {
                 request.getControl().getIdcontrol()
         )));
 
-        var product = productRepository.getReferenceById(data.idproduct());
+        if(data.idproduct() != null) {
+            var product = productRepository.getReferenceById(data.idproduct());
+            request.update(new DetailRequestDTO(product, data.requeststatus()));
+        } else {
+            request.update(new DetailRequestDTO(null, data.requeststatus()));
+        }
 
-        request.update(new DetailRequestDTO(product, data.requeststatus()));
+
 
         return new ListRequestDTO(request);
     }

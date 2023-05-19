@@ -68,6 +68,10 @@ public class ProductUseCase {
         return productRepository.findAllByIsproductactiveTrue(pageable).map(ListProductDTO::new);
     }
 
+    public Page<ListProductDTO> listUnactive(Pageable pageable) {
+        return productRepository.findAllByIsproductactiveFalse(pageable).map(ListProductDTO::new);
+    }
+
     public ListProductDTO getOne(Long idproduct) {
         return new ListProductDTO(productRepository.getReferenceById(idproduct));
     }

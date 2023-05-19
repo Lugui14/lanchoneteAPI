@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByIsproductactiveTrue(Pageable page);
 
+    Page<Product> findAllByIsproductactiveFalse(Pageable page);
+
     boolean existsProductByIdproductAndIsproductactiveTrue(Long idproduct);
 
     boolean existsProductByProduct(String product);

@@ -119,10 +119,10 @@ alter table request
 
 alter sequence "public.request_idrequest_seq" owned by request.idrequest;
 
-create or replace function addreqvaltocontrol() returns trigger
-    language plpgsql
-as
-$$
+CREATE OR REPLACE FUNCTION public.addreqvaltocontrol()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
 	declare
 newvalue float8;
 
@@ -130,11 +130,16 @@ begin
 
 select topay + new.vlvenda into newvalue from "control" where idcontrol = new.idcontrol;
 
-if old.requeststatus <> 1
-		and old.requeststatus <> 2
-		and new.requeststatus <> old.requeststatus
-		and new.requeststatus <> 3
-		and new.requeststatus <> 0 then
+if old.requeststatus = 1
+		or old.requeststatus = 2
+		or old.requeststatus = new.requeststatus
+		then
+			return null;
+end if;
+
+		if new.requeststatus = 1
+		or new.requeststatus = 2
+		then
 update "control"
 set topay = newvalue
 where idcontrol = new.idcontrol;
@@ -142,7 +147,9 @@ end if;
 
 return new;
 end;
-$$;
+$function$
+;
+
 
 alter function addreqvaltocontrol() owner to postgres;
 
@@ -152,27 +159,43 @@ create trigger updatecontrolval
     for each row
     execute procedure addreqvaltocontrol();
 
-create or replace function removereqvaltocontrol() returns trigger
-    language plpgsql
-as
-$$
+CREATE OR REPLACE FUNCTION public.removereqvaltocontrol()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+	declare
+newval float8;
+
 begin
 
+select topay - new.vlvenda into newval from "control" where idcontrol = new.idcontrol;
+
+if old.requeststatus = 0
+		or old.requeststatus = 3
+		or old.requeststatus = 4
+		then
+			return null;
+end if;
+
 		if new.requeststatus = 0
-		and old.requeststatus <> 3
-		and old.requeststatus <> new.requeststatus
-		or new.requeststatus = 3
-		and old.requeststatus <> 0
-		and old.requeststatus <> new.requeststatus
+		or old.requeststatus = 3
+		or new.requeststatus = 4
 		then
 update "control"
-set topay = topay - new.vlvenda
+set topay = newval
 where idcontrol = new.idcontrol;
 end if;
 
+
+update "control"
+set topay = 0
+where topay < 0;
+
 return new;
 end;
-$$;
+$function$
+;
+
 
 alter function removereqvaltocontrol() owner to postgres;
 
