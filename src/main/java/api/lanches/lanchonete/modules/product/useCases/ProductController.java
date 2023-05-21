@@ -33,6 +33,7 @@ public class ProductController {
     @GetMapping("/isactive={isactive}")
     public ResponseEntity<Page<ListProductDTO>> list(@PathVariable boolean isactive, Pageable pageable) {
             var page = productUseCase.list(pageable, isactive);
+
             return ResponseEntity.ok(page);
     }
 

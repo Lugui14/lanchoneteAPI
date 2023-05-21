@@ -68,6 +68,7 @@ public class ProductUseCase {
         if(isactive) {
             return productRepository.findAllByIsproductactiveTrue(pageable).map(ListProductDTO::new);
         }
+
         return productRepository.findAllByIsproductactiveFalse(pageable).map(ListProductDTO::new);
     }
 
