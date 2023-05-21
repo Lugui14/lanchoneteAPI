@@ -64,11 +64,10 @@ public class ProductUseCase {
         return new ListProductDTO(product);
     }
 
-    public Page<ListProductDTO> list(Pageable pageable) {
-        return productRepository.findAllByIsproductactiveTrue(pageable).map(ListProductDTO::new);
-    }
-
-    public Page<ListProductDTO> listUnactive(Pageable pageable) {
+    public Page<ListProductDTO> list(Pageable pageable, boolean isactive) {
+        if(isactive) {
+            return productRepository.findAllByIsproductactiveTrue(pageable).map(ListProductDTO::new);
+        }
         return productRepository.findAllByIsproductactiveFalse(pageable).map(ListProductDTO::new);
     }
 

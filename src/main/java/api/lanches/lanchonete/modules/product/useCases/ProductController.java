@@ -32,13 +32,8 @@ public class ProductController {
 
     @GetMapping("/isactive={isactive}")
     public ResponseEntity<Page<ListProductDTO>> list(@PathVariable boolean isactive, Pageable pageable) {
-        if(isactive) {
-            var page = productUseCase.list(pageable);
+            var page = productUseCase.list(pageable, isactive);
             return ResponseEntity.ok(page);
-        } else {
-            var page = productUseCase.listUnactive(pageable);
-            return ResponseEntity.ok(page);
-        }
     }
 
     @GetMapping("/{idproduct}")
