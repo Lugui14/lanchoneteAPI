@@ -29,10 +29,16 @@ public class CategoryController {
         return ResponseEntity.created(uri).body(new ListCategoriesDTO(category));
     }
 
-    @GetMapping
-    public ResponseEntity<Page<ListCategoriesDTO>> list(Pageable pageable) {
-        var page = categoryUseCase.list(pageable);
+    @GetMapping("/isactive={isactive}")
+    public ResponseEntity<Page<ListCategoriesDTO>> list(@PathVariable boolean isactive, Pageable pageable) {
+        var page = categoryUseCase.list(pageable, isactive);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{idcategory}")
+    public ResponseEntity<ListCategoriesDTO> listOne(@PathVariable Long idcategory) {
+        var category = categoryUseCase.getOne(idcategory);
+        return ResponseEntity.ok(category);
     }
 
     @PutMapping

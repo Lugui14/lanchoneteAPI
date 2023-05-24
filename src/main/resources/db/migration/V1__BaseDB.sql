@@ -1,20 +1,20 @@
-create sequence "public.category_idcategory_seq";
+create sequence if not exists "public.category_idcategory_seq";
 
 alter sequence "public.category_idcategory_seq" owner to postgres;
 
-create sequence "public.product_idproduct_seq";
+create sequence if not exists "public.product_idproduct_seq";
 
 alter sequence "public.product_idproduct_seq" owner to postgres;
 
-create sequence "public.control_idcontrol_seq";
+create sequence if not exists "public.control_idcontrol_seq";
 
 alter sequence "public.control_idcontrol_seq" owner to postgres;
 
-create sequence "public.request_idrequest_seq";
+create sequence if not exists "public.request_idrequest_seq";
 
 alter sequence "public.request_idrequest_seq" owner to postgres;
 
-create sequence "public.waiter_idwaiter_seq";
+create sequence if not exists "public.waiter_idwaiter_seq";
 
 alter sequence "public.waiter_idwaiter_seq" owner to postgres;
 
@@ -134,7 +134,7 @@ if old.requeststatus = 1
 		or old.requeststatus = 2
 		or old.requeststatus = new.requeststatus
 		then
-			return null;
+			return new;
 end if;
 
 		if new.requeststatus = 1
@@ -153,6 +153,7 @@ $function$
 
 alter function addreqvaltocontrol() owner to postgres;
 
+drop trigger updatecontrolval on public.request;
 create trigger updatecontrolval
     after update
     on request
@@ -174,11 +175,11 @@ if old.requeststatus = 0
 		or old.requeststatus = 3
 		or old.requeststatus = 4
 		then
-			return null;
+			return new;
 end if;
 
 		if new.requeststatus = 0
-		or old.requeststatus = 3
+		or new.requeststatus = 3
 		or new.requeststatus = 4
 		then
 update "control"
@@ -198,12 +199,6 @@ $function$
 
 
 alter function removereqvaltocontrol() owner to postgres;
-
-create trigger cancelcontrolval
-    after update
-    on request
-    for each row
-    execute procedure removereqvaltocontrol();
 
 create or replace function addproductvaltorequest() returns trigger
     language plpgsql
@@ -226,6 +221,7 @@ $$;
 
 alter function addproductvaltorequest() owner to postgres;
 
+drop trigger addvlvenda on public.request;
 create trigger addvlvenda
     after insert
     on request
@@ -250,8 +246,5 @@ $$;
 
 alter function watchcontroldiscount() owner to postgres;
 
-create trigger watchcontrol
-    before insert or update
-                         on control
-                         for each row
-                         execute procedure watchcontroldiscount();
+drop trigger if exists watchcontrol on public.request;
+

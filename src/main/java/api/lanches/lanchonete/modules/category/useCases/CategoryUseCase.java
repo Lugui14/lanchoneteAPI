@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.ArrayList;
 
 @Service
 public class CategoryUseCase {
@@ -26,10 +23,15 @@ public class CategoryUseCase {
         return category;
     }
 
-    public Page<ListCategoriesDTO> list(Pageable pageable) {
-        return repository.findAllByIscategoryactiveTrue(pageable).map(ListCategoriesDTO::new);
+    public Page<ListCategoriesDTO> list(Pageable pageable, boolean isactive) {
+    return isactive ? repository.findAllByIscategoryactiveTrue(pageable).map(ListCategoriesDTO::new)
+            : repository.findAllByIscategoryactiveFalse(pageable).map(ListCategoriesDTO::new);
     }
 
+    public ListCategoriesDTO getOne(Long idcategory) {
+        var category = repository.getReferenceById(idcategory);
+        return new ListCategoriesDTO(category);
+    }
     public Category update(UpdateCategoryDTO data) {
         var category = repository.getReferenceById(data.idcategory());
         category.updateData(data);

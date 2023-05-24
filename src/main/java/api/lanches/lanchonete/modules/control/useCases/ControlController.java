@@ -63,8 +63,8 @@ public class ControlController {
 
     @DeleteMapping("/{idcontrol}")
     @Transactional
-    public ResponseEntity<Object> closeControl(@PathVariable Long idcontrol) {
-        controlUseCase.closeControl(idcontrol);
+    public ResponseEntity<Object> closeControl(@PathVariable Long idcontrol, Pageable pageable) {
+        controlUseCase.closeControl(idcontrol, pageable);
 
         return ResponseEntity.ok().build();
     }
