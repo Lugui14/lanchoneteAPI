@@ -25,13 +25,13 @@ para as tabelas do banco além de algumas funcionalidades adicionais requisitada
 <h4> 👩‍💻 COMO RODAR </h4>
 <p id="run" >Execute os comandos abaixo:</p>
 ```
-
 ##Abra o projeto na IDE desejada e baixe as dependências MAVEN
 ##Crie um banco de dados com o nome de 'LANCHONETE' ou altere as configurações em aplication.properties
 
 ##Para executar a API é so rodar na IDE, não existe deploy ativo por enquanto
 ```
-<br>
+
+
 <h4 id="autor">Autor</h4>
 Luiz Guilherme <br>
 Feito com carinho por Luiz Guilherme 👋🏽 Entre em contato!
