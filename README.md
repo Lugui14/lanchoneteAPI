@@ -35,6 +35,6 @@ para as tabelas do banco além de algumas funcionalidades adicionais requisitada
 <h4 id="autor">Autor</h4>
 Luiz Guilherme <br>
 Feito com carinho por Luiz Guilherme 👋🏽 Entre em contato!
-
+<br>
 ![Made With Love Badge](http://ForTheBadge.com/images/badges/built-with-love.svg) <br>
 ![Gmail Badge](https://img.shields.io/badge/-zanelallopes9977@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:zanelallopes9977@gmail.com)
