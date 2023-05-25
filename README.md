@@ -23,11 +23,11 @@ para as tabelas do banco além de algumas funcionalidades adicionais requisitada
 → <a href="https://pt-br.legacy.reactjs.org/"> ReactJS </a> <br>
 
 <h4> 👩‍💻 COMO RODAR </h4>
-<p id="run" >Execute os comandos abaixo:</p>
+<p id="run" >Execute as instruções abaixo:</p>
+
 ```
 ##Abra o projeto na IDE desejada e baixe as dependências MAVEN
 ##Crie um banco de dados com o nome de 'LANCHONETE' ou altere as configurações em aplication.properties
-
 ##Para executar a API é so rodar na IDE, não existe deploy ativo por enquanto
 ```
 
@@ -36,5 +36,5 @@ para as tabelas do banco além de algumas funcionalidades adicionais requisitada
 Luiz Guilherme <br>
 Feito com carinho por Luiz Guilherme 👋🏽 Entre em contato!
 
-![Made With Love Badge](http://ForTheBadge.com/images/badges/built-with-love.svg)
+![Made With Love Badge](http://ForTheBadge.com/images/badges/built-with-love.svg) <br>
 ![Gmail Badge](https://img.shields.io/badge/-zanelallopes9977@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:zanelallopes9977@gmail.com)
